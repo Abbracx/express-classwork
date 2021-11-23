@@ -1,0 +1,61 @@
+<div class="col-lg-6">
+<h1><%-title %></h1>
+<ul class="list-group">
+        <% if (list_admins) { %>
+            <% list_admins.forEach(_admin => { %>
+                <li class="list-group-item">   
+                <% if (_admin.role === 'manager') { %>👨🏾‍✈️ <a href='admins/<%= _admin.name %>'> <%= _admin.name %> </a> <% } %>
+                <% if (_admin.role === 'cto') { %>👨🏾 <a href='admins/<%= _admin.name %>'> <%= _admin.name %> </a> <% } %>
+                <% if (_admin.role === 'devs') { %>👨🏾‍💻 <a href='admins/<%= _admin.name %>'> <%= _admin.name %> </a> <% } %>
+                 
+                </li><br>
+            <% }); %>
+        <% }else { %>
+            <li class="list-group-item" style="color:red">NO ADMIN YET</li>
+        <% } %>
+       
+</ul>
+
+</div>
+
+ <div class="col-lg-6">
+    <h1 class="display-4 mb-4">
+       Please Register Admin
+    </h1>
+    <form action="/admins" method="POST" accept-charset="utf-8">
+        <div class="form-group">
+            <input type="text" class="form-control form-control-lg" name="name" placeholder="Admin name">
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control form-control-lg" name="email" placeholder="email">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control form-control-lg" name="age" placeholder="age">
+        </div>
+            <p>Select gender:</p>
+            <input type="radio" name="gender" value="male" id="option_1">
+            <label for="option_1">Male</label>
+            <input type="radio" name="gender" value="female" id="option_2">
+            <label for="option_2">Female</label>
+            <input type="radio" name="gender" value="other" id="option_3">
+            <label for="option_3">Other</label>
+
+            <br><br>
+
+
+            <label for="bio">Address:</label><br>
+            <textarea name="bio" id="bio" cols="30" rows="10" placeholder="Enter here..."></textarea>
+            <br>
+
+            <p>Select Role:</p>
+            <input type="radio" name="role" value="manager" id="option_1">
+            <label for="option_1">Manager</label>
+            <input type="radio" name="role" value="cto" id="option_2">
+            <label for="option_2">CTO</label>
+            <input type="radio" name="role" value="devs" id="option_3">
+            <label for="option_3">Devs</label>
+            <br>
+        <input type="submit" value="Add" class="btn btn-dark btn-lg mt-4">
+        <a href="/" class="btn btn-danger btn-lg mt-4">Cancel</a>
+    </form>
+ </div>
