@@ -3,10 +3,12 @@ import path from "path";
 import morgan from "morgan";
 import { HttpError } from "http-errors";
 import expressLayouts from 'express-ejs-layouts'
+import dotenv from "dotenv-safe";
 
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+dotenv.config();
+
 
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
@@ -27,6 +29,11 @@ app.use(
   }
 );
 
-app.listen(PORT, () => {
+let port: string | number | undefined = process.env.PORT;
+if (port == null || port == "") {
+  port = 4000;
+}
+
+app.listen(port, () => {
   console.log("listening");
 });

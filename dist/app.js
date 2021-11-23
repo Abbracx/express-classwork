@@ -7,8 +7,9 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan"));
 const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
+const dotenv_safe_1 = __importDefault(require("dotenv-safe"));
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 4000;
+dotenv_safe_1.default.config();
 app.set("views", path_1.default.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use(express_1.default.urlencoded({ extended: false }));
@@ -20,6 +21,10 @@ app.use('/', admin_1.default);
 app.use(async (error, req, res, next) => {
     res.status(500).send(error.message);
 });
-app.listen(PORT, () => {
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 4000;
+}
+app.listen(port, () => {
     console.log("listening");
 });
