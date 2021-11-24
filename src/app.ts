@@ -3,13 +3,14 @@ import path from "path";
 import morgan from "morgan";
 import { HttpError } from "http-errors";
 import expressLayouts from 'express-ejs-layouts'
+
 import dotenv from "dotenv-safe";
 
-const app = express();
 
 dotenv.config();
+const app = express();
 
-
+app.use(express.static('../public'));
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 

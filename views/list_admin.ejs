@@ -22,7 +22,7 @@
     <h1 class="display-4 mb-4">
        Please Register Admin
     </h1>
-    <form action="/admins" method="POST" accept-charset="utf-8">
+    <form action="/admins" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
         <div class="form-group">
             <input type="text" class="form-control form-control-lg" name="name" placeholder="Admin name">
         </div>
@@ -43,8 +43,8 @@
             <br><br>
 
 
-            <label for="bio">Address:</label><br>
-            <textarea name="bio" id="bio" cols="30" rows="10" placeholder="Enter here..."></textarea>
+            <label for="address">Address:</label><br>
+            <textarea name="address" id="address" cols="30" rows="10" placeholder="Enter here..."></textarea>
             <br>
 
             <p>Select Role:</p>
@@ -54,6 +54,9 @@
             <label for="option_2">CTO</label>
             <input type="radio" name="role" value="devs" id="option_3">
             <label for="option_3">Devs</label>
+            <br>
+            <label for="image">Upload image</label>
+            <input type="file" name="image" id="image">
             <br>
         <input type="submit" value="Add" class="btn btn-dark btn-lg mt-4">
         <a href="/" class="btn btn-danger btn-lg mt-4">Cancel</a>

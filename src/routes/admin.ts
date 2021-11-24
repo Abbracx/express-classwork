@@ -1,5 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
+import multer, { Multer } from "multer";
+import path from 'path';
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: '../../public/uploads',
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({storage: storage }).single('image')
 
 enum ADMINS {
   "manager" = "manager",
@@ -20,6 +31,7 @@ interface Admin {
   gender: GENDER;
   address: string;
   role: ADMINS;
+  image?: string;
 }
 
 let admins: Admin[] = [];
@@ -38,9 +50,16 @@ router.get("/admins", (req: Request, res: Response, next: NextFunction) => {
 
 router.post(
   "/admins",
+  upload,
   async function createAdmin(req: Request, res: Response, next: NextFunction) {
     const _admin: Admin = req.body;
     _admin.age = Number(_admin.age);
+
+    if(req.file === undefined){
+      return res.render('error', {message: 'No file (👤) selected.'})
+    }else{
+      _admin.image = req.file.filename
+    }
 
     console.log(_admin);
     switch (_admin.role) {
@@ -73,8 +92,9 @@ router.get(
     console.log(admins);
     let admin = admins.find((_admin) => _admin.name === _name);
     console.log(admin);
+
     if (admin) {
-      res.render("admin", { title: "Admin Page", admin: admin } as Object);
+      res.render("admin", { title: "Admin Page", admin: admin, img: 'images/' + admin.image } );
     }
     res.render("error", { title: "ERROR", message: "😜 ADMIN NOT FOUND 😜" });
   }
