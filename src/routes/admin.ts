@@ -94,7 +94,7 @@ router.get(
     console.log(admin);
 
     if (admin) {
-      res.render("admin", { title: "Admin Page", admin: admin, img: 'images/' + admin.image } );
+      res.render("admin", { title: "Admin Page", admin: admin, img: 'uploads/' + admin.image } );
     }
     res.render("error", { title: "ERROR", message: "😜 ADMIN NOT FOUND 😜" });
   }
